@@ -11,15 +11,15 @@
     "brauxpilot"
   ],
   "repository": {
-    "url": "https://github.com/Venthe/vscode-brauxpilot"
+    "url": "https://github.com/rcgtnick/vscode-brauxpilot"
   },
   "license": "MIT",
-  "publisher": "Venthe",
+  "publisher": "rcgtnick",
   "engines": {
     "vscode": "^1.70.0"
   },
   "bugs": {
-    "url": "https://github.com/Venthe/vscode-brauxpilot/issues"
+    "url": "https://github.com/rcgtnick/vscode-brauxpilot/issues"
   },
   "categories": [
     "Other"
