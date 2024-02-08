@@ -164,8 +164,11 @@ export class FauxpilotCompletionProvider implements InlineCompletionItemProvider
             return [];
         }
 
+        let choice : any = value.choices[0];
+
         // returns 0 elements if model is incorrect
-        let choice1Text = value.choices[0]?.text; 
+        let choice1Text = choice.message.content;
+
         if (!choice1Text) {
             return [];
         }
