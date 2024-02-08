@@ -1,8 +1,8 @@
 {
-  "name": "fauxpilot",
-  "displayName": "Fauxpilot",
-  "description": "Get completions from Fauxpilot server",
-  "version": "1.2.0",
+  "name": "brauxpilot",
+  "displayName": "Brauxpilot",
+  "description": "Get completions from an OpenAI-compatible server",
+  "version": "0.0.1",
   "icon": "assets/icon.png",
   "keywords": [
     "code-suggestion",
@@ -35,60 +35,60 @@
   "contributes": {
     "commands": [
       {
-        "command": "fauxpilot.enable",
-        "shortTitle": "Enable Fauxpilot",
-        "title": "Enable Fauxpilot"
+        "command": "brauxpilot.enable",
+        "shortTitle": "Enable Brauxpilot",
+        "title": "Enable Brauxpilot"
       },
       {
-        "command": "fauxpilot.disable",
-        "title": "Disable Fauxpilot",
-        "shortTitle": "Disable Fauxpilot"
+        "command": "brauxpilot.disable",
+        "title": "Disable Brauxpilot",
+        "shortTitle": "Disable Brauxpilot"
       }
     ],
     "configuration": {
-      "title": "Fauxpilot",
+      "title": "Brauxpilot",
       "properties": {
-        "fauxpilot.server": {
+        "brauxpilot.server": {
           "type": "string",
-          "default": "http://localhost:5000/v1/engines"
+          "default": "https://chadgpt.oxaro.io:444/engines"
         },
-        "fauxpilot.engine": {
+        "brauxpilot.engine": {
           "type": "string",
-          "default": "codegen"
+          "default": "codellama:code"
         },
-        "fauxpilot.model": {
+        "brauxpilot.model": {
           "type": "string",
           "default": "fastertransformer"
         },
-        "fauxpilot.token": {
+        "brauxpilot.token": {
           "type": "string",
           "default": "dummy"
         },
-        "fauxpilot.maxTokens": {
+        "brauxpilot.maxTokens": {
           "type": "number",
           "default": 200
         },
-        "fauxpilot.temperature": {
+        "brauxpilot.temperature": {
           "type": "number",
           "default": 0.1
         },
-        "fauxpilot.maxLines": {
+        "brauxpilot.maxLines": {
           "type": "number",
           "default": 150
         },
-        "fauxpilot.suggestionDelay": {
+        "brauxpilot.suggestionDelay": {
           "type": "number",
           "default": 150
         },
-        "fauxpilot.enabled": {
+        "brauxpilot.enabled": {
           "type": "boolean",
           "default": true
         },
-        "fauxpilot.inlineCompletion": {
+        "brauxpilot.inlineCompletion": {
           "type": "boolean",
           "default": true
         },
-        "fauxpilot.fileFilter": {
+        "brauxpilot.fileFilter": {
           "type": "array",
           "default": [
             {
@@ -97,17 +97,17 @@
           ],
           "description": "Allow suggestion only for files matching given patterns; Reference: https://code.visualstudio.com/api/references/document-selector"
         },
-        "fauxpilot.excludeFileExts": {
+        "brauxpilot.excludeFileExts": {
           "type": "object",
           "default": {},
           "description": "File extensions to exclude from suggestions. e.g: {\"md\": true} "
         },
-        "fauxpilot.allowPending": {
+        "brauxpilot.allowPending": {
           "type": "boolean",
           "defaultValue": true,
           "description": "Allow wait previous request? If false, current `provideInlineCompletionItems` call will do nothing."
         },
-        "fauxpilot.requestType": {
+        "brauxpilot.requestType": {
           "type": "string",
           "default": "openai",
           "enum": [
@@ -151,6 +151,6 @@
   "dependencies": {
     "axios": "^1.5.0",
     "http": "^0.0.1-security",
-    "openai": "^4.3.1"
+    "openai": "^4.26"
   }
 }
