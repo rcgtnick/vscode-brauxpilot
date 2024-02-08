@@ -14,7 +14,7 @@ jobs:
       - run: npm ci
       - run: npm run --silent -- vscode:package
       - run: |
-          echo "ASSET=$(ls fauxpilot-*.vsix)" >> $GITHUB_OUTPUT
+          echo "ASSET=$(ls brauxpilot-*.vsix)" >> $GITHUB_OUTPUT
           echo "PACKAGE_VERSION=$(npx -c 'echo "$npm_package_version"')" >> $GITHUB_OUTPUT
         id: data
       - uses: softprops/action-gh-release@v1

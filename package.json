@@ -8,10 +8,10 @@
     "code-suggestion",
     "copilot",
     "code-inference",
-    "fauxpilot"
+    "brauxpilot"
   ],
   "repository": {
-    "url": "https://github.com/Venthe/vscode-fauxpilot"
+    "url": "https://github.com/Venthe/vscode-brauxpilot"
   },
   "license": "MIT",
   "publisher": "Venthe",
@@ -19,7 +19,7 @@
     "vscode": "^1.70.0"
   },
   "bugs": {
-    "url": "https://github.com/Venthe/vscode-fauxpilot/issues"
+    "url": "https://github.com/Venthe/vscode-brauxpilot/issues"
   },
   "categories": [
     "Other"

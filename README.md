@@ -1,13 +1,13 @@
 # Visual Studio Code - Fauxpilot Client
 
-[![GitHub contributors](https://img.shields.io/github/contributors/venthe/vscode-fauxpilot)](https://github.com/Venthe/vscode-fauxpilot/graphs/contributors)
-[![Forks](https://img.shields.io/github/forks/Venthe/vscode-fauxpilot?style=social)](https://github.com/Venthe/vscode-fauxpilot/forks)
-[![Stars](https://img.shields.io/github/stars/venthe/vscode-fauxpilot?style=social)](https://github.com/Venthe/vscode-fauxpilot/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/venthe/vscode-fauxpilot)](https://github.com/Venthe/vscode-fauxpilot/issues)
-[![License](https://img.shields.io/github/license/venthe/vscode-fauxpilot)](https://github.com/Venthe/vscode-fauxpilot/blob/main/LICENSE.md)
-[![Test](https://github.com/Venthe/vscode-fauxpilot/actions/workflows/test.yml/badge.svg)](https://github.com/Venthe/vscode-fauxpilot/actions/workflows/test.yml)
+[![GitHub contributors](https://img.shields.io/github/contributors/venthe/vscode-brauxpilot)](https://github.com/Venthe/vscode-brauxpilot/graphs/contributors)
+[![Forks](https://img.shields.io/github/forks/Venthe/vscode-brauxpilot?style=social)](https://github.com/Venthe/vscode-brauxpilot/forks)
+[![Stars](https://img.shields.io/github/stars/venthe/vscode-brauxpilot?style=social)](https://github.com/Venthe/vscode-brauxpilot/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/venthe/vscode-brauxpilot)](https://github.com/Venthe/vscode-brauxpilot/issues)
+[![License](https://img.shields.io/github/license/venthe/vscode-brauxpilot)](https://github.com/Venthe/vscode-brauxpilot/blob/main/LICENSE.md)
+[![Test](https://github.com/Venthe/vscode-brauxpilot/actions/workflows/test.yml/badge.svg)](https://github.com/Venthe/vscode-brauxpilot/actions/workflows/test.yml)
 
-Please be aware! For this extension to work you have to set up [Fauxpilot server](https://github.com/moyix/fauxpilot) by @moyix
+Please be aware! For this extension to work you have to set up [Fauxpilot server](https://github.com/moyix/brauxpilot) by @moyix
 
 ## Development
 
@@ -64,4 +64,4 @@ Inspired & used snippets from:
 * https://github.com/hieunc229/copilot-clone
 
 
-Client is build around [Fauxpilot server](https://github.com/moyix/fauxpilot)
+Client is build around [Fauxpilot server](https://github.com/moyix/brauxpilot)

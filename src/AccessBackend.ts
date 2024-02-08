@@ -1,4 +1,4 @@
-import { fauxpilotClient, RequestType } from "./FauxpilotClient";
+import { brauxpilotClient, RequestType } from "./BrauxpilotClient";
 
 // import * as http from 'http'
 // import * as https from 'https'
@@ -22,11 +22,11 @@ class AccessBackendCache {
 
 
     constructor() {
-        this.openai = new OpenAI({ apiKey: fauxpilotClient.Token, baseURL: fauxpilotClient.BaseUrl });
+        this.openai = new OpenAI({ apiKey: brauxpilotClient.Token, baseURL: brauxpilotClient.BaseUrl });
         this.axiosInstance = axios.create({
             httpAgent,
             httpsAgent,
-            baseURL: fauxpilotClient.BaseUrl,
+            baseURL: brauxpilotClient.BaseUrl,
             timeout: 20000,
         });
     
@@ -58,14 +58,14 @@ function getCache(): AccessBackendCache {
 export function fetch(prompt: string): Promise<OpenAI.Completion> {
 
     const data = {
-        model: fauxpilotClient.Model,
+        model: brauxpilotClient.Model,
         prompt: prompt,
-        max_tokens: fauxpilotClient.MaxTokens,
-        temperature: fauxpilotClient.Temperature,
-        stop: fauxpilotClient.StopWords
+        max_tokens: brauxpilotClient.MaxTokens,
+        temperature: brauxpilotClient.Temperature,
+        stop: brauxpilotClient.StopWords
     };
 
-    if (fauxpilotClient.RequestType == RequestType.OpenAI) {
+    if (brauxpilotClient.RequestType == RequestType.OpenAI) {
         return getCache().fetchUseOpenAI(data);
     } else {
         return getCache().fetchUseAxios(data);

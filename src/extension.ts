@@ -2,25 +2,25 @@
 // Import the module and reference it with the alias vscode in your code below
 import { commands, ExtensionContext, languages, StatusBarAlignment, window, workspace} from 'vscode';
 import { turnOffFauxpilot, turnOnFauxpilot } from './Commands';
-import { FauxpilotCompletionProvider } from './FauxpilotCompletionProvider';
-import { fauxpilotClient } from './FauxpilotClient';
+import { FauxpilotCompletionProvider } from './BrauxpilotCompletionProvider';
+import { brauxpilotClient } from './BrauxpilotClient';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: ExtensionContext) {
-	console.debug("Registering Fauxpilot provider", new Date());
+	console.debug("Registering Brauxpilot provider", new Date());
 
 	const statusBar = window.createStatusBarItem(StatusBarAlignment.Right);
 	statusBar.text = "$(light-bulb)";
 	statusBar.tooltip = `Fauxpilot - Ready`;
 
 	let outputChannel = window.createOutputChannel("Fauxpilot");
-	let extConfig = workspace.getConfiguration("fauxpilot");
+	let extConfig = workspace.getConfiguration("brauxpilot");
 	const version = context.extension.packageJSON.version;
 
-	fauxpilotClient.version = version;
-	fauxpilotClient.init(extConfig, outputChannel);
-	fauxpilotClient.log("Fauxpilot start. version: " + version);
+	brauxpilotClient.version = version;
+	brauxpilotClient.init(extConfig, outputChannel);
+	brauxpilotClient.log("Fauxpilot start. version: " + version);
 
 	const statusUpdateCallback = (callback: any, showIcon: boolean) => async () => {
 		await callback();
@@ -32,7 +32,7 @@ export function activate(context: ExtensionContext) {
 	};
 
 	const fileFilter = extConfig.get("fileFilter", [{ pattern: "**" }]);
-	fauxpilotClient.log('fileFilter: ' + JSON.stringify(fileFilter));
+	brauxpilotClient.log('fileFilter: ' + JSON.stringify(fileFilter));
 
 	context.subscriptions.push(	
 		languages.registerInlineCompletionItemProvider(
@@ -44,17 +44,17 @@ export function activate(context: ExtensionContext) {
 	);
 
 	workspace.onDidChangeConfiguration((event) => {
-		if (event.affectsConfiguration("fauxpilot")) {
-			fauxpilotClient.log("fauxpilot config has been changed, try to reload.");
-			fauxpilotClient.reload(workspace.getConfiguration("fauxpilot"));
+		if (event.affectsConfiguration("brauxpilot")) {
+			brauxpilotClient.log("brauxpilot config has been changed, try to reload.");
+			brauxpilotClient.reload(workspace.getConfiguration("brauxpilot"));
 		}
 	});
 
-	if (fauxpilotClient.isEnabled) {
+	if (brauxpilotClient.isEnabled) {
 		statusBar.show();
 	}
 
-	fauxpilotClient.log('end of context activate');
+	brauxpilotClient.log('end of context activate');
 }
 
 // this method is called when your extension is deactivated

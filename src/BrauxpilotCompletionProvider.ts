@@ -7,7 +7,7 @@ import {
 
 import { nextId,delay } from './Utils';
 import { LEADING_LINES_PROP } from './Constants';
-import { fauxpilotClient } from './FauxpilotClient';
+import { brauxpilotClient } from './BrauxpilotClient';
 import { fetch } from './AccessBackend';
 
 
@@ -27,42 +27,42 @@ export class FauxpilotCompletionProvider implements InlineCompletionItemProvider
     //@ts-ignore
     // because ASYNC and PROMISE
     public async provideInlineCompletionItems(document: TextDocument, position: Position, context: InlineCompletionContext, token: CancellationToken): ProviderResult<InlineCompletionItem[] | InlineCompletionList> {
-        fauxpilotClient.log(`call inline: ${position.line}:${position.character}`);
+        brauxpilotClient.log(`call inline: ${position.line}:${position.character}`);
 
         try {
-            if (!fauxpilotClient.isEnabled) {
-                fauxpilotClient.log("Extension not enabled, skipping.");
+            if (!brauxpilotClient.isEnabled) {
+                brauxpilotClient.log("Extension not enabled, skipping.");
                 return;
             }
 
             let fileExt = document.fileName.split('.').pop();
-            if (fileExt && fauxpilotClient.ExcludeFileExts.includes(fileExt)) {
+            if (fileExt && brauxpilotClient.ExcludeFileExts.includes(fileExt)) {
                 // check if fileExt in array excludeFileExts
-                fauxpilotClient.log("Ignore file ext: " + fileExt);
+                brauxpilotClient.log("Ignore file ext: " + fileExt);
                 return;
             }
 
             const prompt = this.getPrompt(document, position);
-            let suggestionDelay = fauxpilotClient.SuggestionDelay;
+            let suggestionDelay = brauxpilotClient.SuggestionDelay;
             if (suggestionDelay > 0) {
                 let holdPressId = ++this.userPressKeyCount;
-                fauxpilotClient.log(`try await ${suggestionDelay}, ${holdPressId}`);
+                brauxpilotClient.log(`try await ${suggestionDelay}, ${holdPressId}`);
                 await delay(suggestionDelay);
                 if (holdPressId != this.userPressKeyCount) {
                     return;
                 }
-                fauxpilotClient.log(`after await, ${holdPressId}, ${this.userPressKeyCount}`);
+                brauxpilotClient.log(`after await, ${holdPressId}, ${this.userPressKeyCount}`);
                 if (token.isCancellationRequested) {
-                    fauxpilotClient.log('request cancelled.');
+                    brauxpilotClient.log('request cancelled.');
                     return;
                 }
             }
 
-            // fauxpilotClient.log(`Requesting completion for prompt: ${prompt}`);
-            fauxpilotClient.log(`Requesting completion for prompt, length: ${prompt?.length ?? 0}`);
+            // brauxpilotClient.log(`Requesting completion for prompt: ${prompt}`);
+            brauxpilotClient.log(`Requesting completion for prompt, length: ${prompt?.length ?? 0}`);
 
             if (this.isNil(prompt)) {
-                fauxpilotClient.log("Prompt is empty, skipping");
+                brauxpilotClient.log("Prompt is empty, skipping");
                 return Promise.resolve(([] as InlineCompletionItem[]));
             }
 
@@ -72,44 +72,44 @@ export class FauxpilotCompletionProvider implements InlineCompletionItemProvider
 
             // check there is no newer request util this.request_status is done
             while (this.requestStatus === "pending") {
-                fauxpilotClient.log("pending, and Waiting for response...");
+                brauxpilotClient.log("pending, and Waiting for response...");
                 await delay(200);
-                fauxpilotClient.log("current id = " + currentId + " request status = " + this.requestStatus);
+                brauxpilotClient.log("current id = " + currentId + " request status = " + this.requestStatus);
                 if (this.newestTimestamp() > currentTimestamp) {
-                    fauxpilotClient.log("newest timestamp=" + this.newestTimestamp() + "current timestamp=" + currentTimestamp);
-                    fauxpilotClient.log("Newer request is pending, skipping");
+                    brauxpilotClient.log("newest timestamp=" + this.newestTimestamp() + "current timestamp=" + currentTimestamp);
+                    brauxpilotClient.log("Newer request is pending, skipping");
                     this.cachedPrompts.delete(currentId);
                     return Promise.resolve(([] as InlineCompletionItem[]));
                 }
             }
 
             if (token.isCancellationRequested) {
-                fauxpilotClient.log('request cancelled.');
+                brauxpilotClient.log('request cancelled.');
                 return;
             }
 
-            fauxpilotClient.log("Calling OpenAi, prompt length: " + prompt?.length);
+            brauxpilotClient.log("Calling OpenAi, prompt length: " + prompt?.length);
             const promptStr = prompt?.toString();
             if (!promptStr) {
                 return;
             }
-            // fauxpilotClient.log(promptStr);
+            // brauxpilotClient.log(promptStr);
 
-            fauxpilotClient.log("current id = " + currentId + " set request status to pending");
+            brauxpilotClient.log("current id = " + currentId + " set request status to pending");
             this.requestStatus = "pending";
             this.statusBar.tooltip = "Fauxpilot - Working";
             this.statusBar.text = "$(loading~spin)";
             return fetch(promptStr).then((response) => {
                 this.statusBar.text = "$(light-bulb)";
                 // if (token.isCancellationRequested) {
-                //     fauxpilotClient.log('request cancelled.');
+                //     brauxpilotClient.log('request cancelled.');
                 //     return [];
                 // }
                 let result = this.toInlineCompletions(response, position);
-                fauxpilotClient.log("inline completions array length: " + result.length);
+                brauxpilotClient.log("inline completions array length: " + result.length);
                 return result;
             }).finally(() => {
-                fauxpilotClient.log("current id = " + currentId + " set request status to done");
+                brauxpilotClient.log("current id = " + currentId + " set request status to done");
                 this.requestStatus = "done";
                 this.cachedPrompts.delete(currentId);
             });
@@ -117,18 +117,18 @@ export class FauxpilotCompletionProvider implements InlineCompletionItemProvider
         } catch (error) {
             console.log('An error occurred: ' + error);
             if (typeof error === 'string') {
-                fauxpilotClient.log("Catch an error: " + error);    
+                brauxpilotClient.log("Catch an error: " + error);    
             } else if (error instanceof Error) {
-                fauxpilotClient.log(`Catch an error, ${error.name}: ${error.message}`);
-                fauxpilotClient.log(`stack: ${error.stack}`);
+                brauxpilotClient.log(`Catch an error, ${error.name}: ${error.message}`);
+                brauxpilotClient.log(`stack: ${error.stack}`);
             } else {
-                fauxpilotClient.log('an unknown error!'); 
+                brauxpilotClient.log('an unknown error!'); 
             }
         }
     }
 
     private getPrompt(document: TextDocument, position: Position): string {
-        const promptLinesCount = fauxpilotClient.MaxLines;
+        const promptLinesCount = brauxpilotClient.MaxLines;
 
         /* 
         Put entire file in prompt if it's small enough, otherwise only
@@ -173,8 +173,8 @@ export class FauxpilotCompletionProvider implements InlineCompletionItemProvider
             return [];
         }
 
-        fauxpilotClient.log('Get choice text: ' + choice1Text);
-        // fauxpilotClient.log('---------END-OF-CHOICE-TEXT-----------');
+        brauxpilotClient.log('Get choice text: ' + choice1Text);
+        // brauxpilotClient.log('---------END-OF-CHOICE-TEXT-----------');
         if (choice1Text.trim().length <= 0) {
             return [];
         }

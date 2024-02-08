@@ -149,5 +149,5 @@ export class FauxpilotClient {
 
 const client = new FauxpilotClient();
 
-export const fauxpilotClient = client;
+export const brauxpilotClient = client;
 
