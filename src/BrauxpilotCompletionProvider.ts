@@ -179,6 +179,10 @@ export class FauxpilotCompletionProvider implements InlineCompletionItemProvider
             return [];
         }
 
+        if (choice1Text.match(/^ [^ ]/)) {
+            choice1Text = choice1Text.replace(/^ /, '');
+        }
+
         return [new InlineCompletionItem(choice1Text, new Range(position, position.translate(0, choice1Text.length)))];
     }
 
