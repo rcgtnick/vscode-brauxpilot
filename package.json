@@ -27,10 +27,14 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "author": {
+  "authors": [{
     "name": "Jacek Lipiec",
     "url": "https://jaceklipiec.eu/"
   },
+  {
+    "name": "Nicholas Newberry",
+    "url": "https://github.com/rcgtnick"
+  }],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
