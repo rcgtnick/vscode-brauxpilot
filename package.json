@@ -2,7 +2,7 @@
   "name": "brauxpilot",
   "displayName": "Brauxpilot",
   "description": "Get completions from an OpenAI-compatible server",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "icon": "assets/icon.png",
   "keywords": [
     "code-suggestion",
@@ -58,11 +58,11 @@
         },
         "brauxpilot.engine": {
           "type": "string",
-          "default": "codellama:code"
+          "default": "codellama:13b-code"
         },
         "brauxpilot.model": {
           "type": "string",
-          "default": "fastertransformer"
+          "default": "codellama:13b-code"
         },
         "brauxpilot.token": {
           "type": "string",
